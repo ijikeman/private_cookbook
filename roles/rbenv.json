@@ -1,0 +1,9 @@
+{
+  "name": "rbenv",
+  "run_list": [
+    "recipe[rbenv::initial]",
+    "recipe[rbenv::install_packages]",
+    "recipe[rbenv::setup]",
+    "recipe[rbenv::install_ruby]"
+  ]
+}
