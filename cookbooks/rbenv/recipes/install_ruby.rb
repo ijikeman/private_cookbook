@@ -11,14 +11,24 @@ bash 'install ruby' do
   cwd '/tmp'
   code <<-EOH
     source /root/.bashrc
+    chmod -R g-s /root/.rbenv
     rbenv install "#{node['rbenv']['ruby_version']}"
   EOH
-  not_if "/root/.rbenv/bin/rbenv versions|egrep '^ +#{node['rbenv']['ruby_version']}$'"
+  not_if "/root/.rbenv/bin/rbenv versions|egrep '#{node['rbenv']['ruby_version']}$'"
 end
 
 bash 'active ruby' do
   user 'root'
   code <<-EOH
-    rbenv global node['rbenv']['ruby_version']
+    source /root/.bashrc
+    rbenv global "#{node['rbenv']['ruby_version']}"
+  EOH
+end
+
+bash 'install bundle' do
+  user 'root'
+  code <<-EOH
+    source /root/.bashrc
+    gem install bundler
   EOH
 end
