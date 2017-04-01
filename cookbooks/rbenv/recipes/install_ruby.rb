@@ -14,7 +14,7 @@ bash 'install ruby' do
     chmod -R g-s /root/.rbenv
     rbenv install "#{node['rbenv']['ruby_version']}"
   EOH
-  not_if "/root/.rbenv/bin/rbenv versions|egrep '#{node['rbenv']['ruby_version']}$'"
+  not_if "source /root/.bashrc; rbenv versions|egrep '#{node['rbenv']['ruby_version']}'"
 end
 
 bash 'active ruby' do
